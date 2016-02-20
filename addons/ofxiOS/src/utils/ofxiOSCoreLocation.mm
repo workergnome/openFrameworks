@@ -19,9 +19,6 @@
 
 #include "ofxiOSCoreLocation.h"
 
-#include <TargetConditionals.h>
-#if TARGET_OS_IOS || (TARGET_OS_IPHONE && !TARGET_OS_TV)
-
 //C++ class implementations
 
 //--------------------------------------------------------------
@@ -343,5 +340,3 @@ double ofxiOSCoreLocation::getHeadingAccuracy()
 }
 
 @end
-
-#endif

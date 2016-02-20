@@ -328,7 +328,7 @@ static const NSString * ItemStatusContext;
     }
     
     //------------------------------------------------------------ add audio output.
-    double preferredHardwareSampleRate = [[AVAudioSession sharedInstance] sampleRate];
+    double preferredHardwareSampleRate = [[AVAudioSession sharedInstance] currentHardwareSampleRate];
     
     AudioChannelLayout channelLayout;
     bzero(&channelLayout, sizeof(channelLayout));

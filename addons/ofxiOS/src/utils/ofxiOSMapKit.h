@@ -30,9 +30,6 @@
 
 #pragma once
 
-#include <TargetConditionals.h>
-#if TARGET_OS_IOS || (TARGET_OS_IPHONE && !TARGET_OS_TV)
-
 #import <MapKit/MapKit.h>
 #include "ofBaseTypes.h"
 #include "ofxiOSMapKitListener.h"
@@ -158,6 +155,4 @@ protected:
 #define ofxiPhone_MAPKIT_HYRBID     OFXIOS_MAPKIT_HYRBID
 #define ofxiPhoneMapKit ofxiOSMapKit
 //-------------------------------------------------------------------------------
-
-#endif
 

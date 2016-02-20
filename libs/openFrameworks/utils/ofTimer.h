@@ -2,22 +2,9 @@
 #include "ofConstants.h"
 class ofTimer {
 public:
-	
-	/// \brief Constructs the default ofTimer().
 	ofTimer();
-
-	/// \brief Reset the starting instant of the periodic event to now.
 	void reset();
-	
-	/// \brief Sets the timer event interval in nanoseconds.
-	/// 
-	/// The timer will begin calculating the event intervals beginning the
-	/// moment the function is called.
-	///
-	/// \param nanoseconds The number of nanoseconds between events.
 	void setPeriodicEvent(uint64_t nanoseconds);
-	
-	/// \brief Sleep the current thread until the next periodic event.
 	void waitNext();
 private:
 	void calculateNextPeriod();

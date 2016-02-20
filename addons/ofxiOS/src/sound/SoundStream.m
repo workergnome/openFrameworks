@@ -8,7 +8,7 @@
 #import "SoundStream.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface SoundStream() {
+@interface SoundStream()<AVAudioSessionDelegate> {
     //
 }
 @end
@@ -36,15 +36,20 @@
         audioUnit = nil;
         bInterruptedWhileRunning = NO;
 		
-		
+    #ifdef __IPHONE_6_0
 		if([SoundStream shouldUseAudioSessionNotifications]) {
 			[[NSNotificationCenter defaultCenter] addObserver:self
 													 selector:@selector(handleInterruption:)
 														 name:AVAudioSessionInterruptionNotification
 													   object:nil];
 		} else {
-			
+     #endif
+    
+        [[AVAudioSession sharedInstance] setDelegate:self];
+    
+    #ifdef __IPHONE_6_0
 		}
+    #endif 
     
     }
     return self;
@@ -53,14 +58,21 @@
 - (void)dealloc {
     [super dealloc];
 	
-	
+    #ifdef __IPHONE_6_0
 	if([SoundStream shouldUseAudioSessionNotifications]) {
 		[[NSNotificationCenter defaultCenter] removeObserver:self
 														name:AVAudioSessionInterruptionNotification
 													  object:nil];
 	} else {
-		
+    #endif
+    
+		[[AVAudioSession sharedInstance] setDelegate:nil];
+	
+    
+    #ifdef __IPHONE_6_0
     }
+    #endif
+    
 }
 
 - (void)start {
@@ -96,7 +108,13 @@
 			audioSessionError = nil;
 		}
 		trueSampleRate = [audioSession sampleRate];
-	} 
+	} else if([audioSession respondsToSelector:@selector(setPreferredHardwareSampleRate:error:)]) {
+		if(![audioSession setPreferredHardwareSampleRate:sampleRate error:&audioSessionError]) {
+			[self reportError:audioSessionError];
+			audioSessionError = nil;
+		}
+		trueSampleRate = [audioSession currentHardwareSampleRate];
+	}
 	sampleRate = trueSampleRate;
 	
 	// setting buffer size

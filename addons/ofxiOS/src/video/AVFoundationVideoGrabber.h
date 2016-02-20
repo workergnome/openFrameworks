@@ -3,8 +3,6 @@
  */
 
 #pragma once
-#include <TargetConditionals.h>
-#if TARGET_OS_IOS || (TARGET_OS_IPHONE && !TARGET_OS_TV)
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
@@ -93,8 +91,6 @@ class AVFoundationVideoGrabber{
 		iOSVideoGrabber * grabber;
 		GLubyte *pixelsTmp;
 };
-
-#endif
 
 
 
